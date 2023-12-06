@@ -9,16 +9,39 @@ var roleTransfer =
           else if(!creep.memory.transfering && creep.store.getFreeCapacity() == 0)
                {creep.memory.transfering = true;
                } 
+
+          var sources = creep.room.find(FIND_SOURCES);
+          for(var i=0; i<sources.length; i++)
+          {
+          var harvesters = _.filter(Game.creeps, (c) => c.memory.role == 'Transfer' 
+          && c.memory.minerPos !== undefined
+          && c.memory.minerPos.x == sources[i].pos.x 
+          && c.memory.minerPos.y == sources[i].pos.y 
+          && c.memory.minerPos.roomName == sources[i].room.name);
+          if(harvesters.length == 0)
+          {
+
+               creep.memory.minerPos =
+               {
+                    x: sources[i].pos.x,
+                    y: sources[i].pos.y,
+                    roomName: sources[i].room.name,
+               }
+                         
+
+                    }
+          }
+          if(creep.memory.minerPos.x !=0 && creep.memory.minerPos.y !=0)
+               {
+                    var targetPos = new RoomPosition(creep.memory.minerPos.x, creep.memory.minerPos.y, creep.memory.minerPos.roomName);
+                    var source = targetPos.lookFor(LOOK_SOURCES);
+               }
+
           if(creep.memory.transfering == false)
           // creep.carry.energy < creep.carryCapacity
           {    
                
-               // var minerPos = new RoomPosition
-               // (
-               //      creep.memory.minerPos.x, 
-               //      creep.memory.minerPos.y, 
-               //      creep.memory.minerPos.roomName
-               // );
+               
                
                     var miner = creep.pos.findClosestByPath(FIND_MY_CREEPS, 
                          {
