@@ -66,7 +66,7 @@ var roleMiner =
                     (
                          FIND_MY_CREEPS,
                          {
-                              filter:(c) => c.memory.role == 'transfer' && c.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                              filter:(c) => c.memory.role == 'transfer'|| c.memory.role == 'builder'   && c.store.getFreeCapacity(RESOURCE_ENERGY) > 0
                          }
                     );
                     

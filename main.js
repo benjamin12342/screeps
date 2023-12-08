@@ -18,7 +18,7 @@ module.exports.loop = function()
      Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'miner2', {memory: {role: 'miner',minerPos :{x:0,y:0,roomName: Game.spawns['Spawn1'].room.name}}});
      Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater1', {memory: {role: 'upgrader'}});
      Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater2', {memory: {role: 'upgrader'}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'builder1', {memory: {role: 'builder',building:false} });
+     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'builder1', {memory: {role: 'builder',transfering: false} });
      
     
      
@@ -35,7 +35,7 @@ module.exports.loop = function()
           }
           if(creep.memory.role == 'builder')
           {
-               roleBuilder.run(creep);
+               roleTransfer.run(creep);
           }
           if(creep.memory.role == 'miner')
           {
