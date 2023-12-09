@@ -101,7 +101,7 @@ var roleTransfer =
                     else 
                     {
                          var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
-                         if( constructionSite.length > 0)
+                         if( constructionSites.length > 0)
                          {
                               if(creep.build(constructionSites[0]) == ERR_NOT_IN_RANGE)
                               {
