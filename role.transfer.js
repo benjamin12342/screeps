@@ -41,30 +41,43 @@ var roleTransfer =
           //           var source = targetPos.lookFor(LOOK_SOURCES);
           //      }
 
+          
           if(creep.memory.transfering == false)
           // creep.carry.energy < creep.carryCapacity
           {    
+               var targetPos;
+               if (creep.memory.minerPos) 
+               {
+                    targetPos = new RoomPosition(creep.memory.minerPos.x, creep.memory.minerPos.y, creep.memory.minerPos.roomName);
+               }
+               var miner = null;
+
                
-               
-               
-                    var miner = creep.pos.findClosestByPath(FIND_MY_CREEPS, 
+               if (targetPos) 
+               {
+                    miner = targetPos.findClosestByPath(FIND_MY_CREEPS, 
+                    {
+                         filter: (c) => c.memory.role == 'miner' 
+                         && c.memory.minerPos 
+                         && c.memory.minerPos.x == targetPos.x 
+                         && c.memory.minerPos.y == targetPos.y 
+                         && c.memory.minerPos.roomName == targetPos.roomName
+                    });
+               }
+
+                    if (miner)
+                    {    
+                         //console.log(miner);
+                         creep.memory.minerPos =
                          {
-                              filter: (creep) => creep.memory.role == 'miner'
-                         });
 
-                         if (miner)
-                         {    
-                              //console.log(miner);
-                              creep.memory.minerPos =
-                              {
-
-                                   x:miner.pos.x,
-                                   y:miner.pos.y,
-                                   roomName: miner.room.name
-                              };
-                              
-                              
-                         }
+                              x:miner.pos.x,
+                              y:miner.pos.y,
+                              roomName: miner.room.name
+                         };
+                         
+                         
+                    }
                          
                
                if(!creep.pos.isNearTo(miner) && miner)
@@ -77,18 +90,27 @@ var roleTransfer =
                      
           }
           else 
-          {  
+          {   
+               
                var targets = creep.room.find(FIND_STRUCTURES,
                     {
                          filter:(structure) => 
                          {
-                              return ((structure.structureType == STRUCTURE_EXTENSION||
+                              return ((structure.structureType == STRUCTURE_EXTENSION)
+                                   &&structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+                                   
+               )}});
+               if(targets.length ==0)
+               {var targets = creep.room.find(FIND_STRUCTURES,
+                    {
+                         filter:(structure) => 
+                         {
+                              return ((
                                    structure.structureType == STRUCTURE_SPAWN ||
                                    structure.structureType == STRUCTURE_TOWER)
                                    &&structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
                                    
-               )}
-                    });
+               )}});}
                     if(targets.length > 0)
                     {    
                          if(targets[0].store.getFreeCapacity(RESOURCE_ENERGY) > 0&&creep.transfer(targets[0], RESOURCE_ENERGY) ==ERR_NOT_IN_RANGE) 

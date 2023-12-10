@@ -18,12 +18,12 @@ var roleMiner =
      var sources = creep.room.find(FIND_SOURCES);
      for(var i=0; i<sources.length; i++)
      {
-          var harvesters = _.filter(Game.creeps, (c) => c.memory.role == 'miner' 
+          var miner = _.filter(Game.creeps, (c) => c.memory.role == 'miner' 
           && c.memory.minerPos !== undefined
           && c.memory.minerPos.x == sources[i].pos.x 
           && c.memory.minerPos.y == sources[i].pos.y 
           && c.memory.minerPos.roomName == sources[i].room.name);
-          if(harvesters.length == 0)
+          if(miner.length == 0)
           {
 
                creep.memory.minerPos =
@@ -46,7 +46,7 @@ var roleMiner =
                {if(creep.harvest(source[0] ) == ERR_NOT_IN_RANGE )
 
                {    //寻路逻辑要单独摘出来
-                    console.log("test");
+                    
                creep.moveTo(source[0], 
                {visualizePathStyle: {stroke: '#ffaa00'}});
                }
