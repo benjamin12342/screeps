@@ -3,6 +3,8 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleMiner = require('role.miner');
 var roleTransfer = require('role.transfer');
+var towerLogic = require('towerLogic');
+
 
 //pickup logic
 //repair logic
@@ -45,6 +47,14 @@ module.exports.loop = function()
           {
                roleTransfer.run(creep);
           }
+     }
+     var towers = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, 
+          {
+               filter: (structure) => structure.structureType == STRUCTURE_TOWER
+          });
+     for(var tower of towers)
+     {
+          towerLogic.run(tower);
      }
 
 }
