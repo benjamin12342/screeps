@@ -1,6 +1,6 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+
 var roleMiner = require('role.miner');
 var roleTransfer = require('role.transfer');
 var towerLogic = require('towerLogic');
@@ -15,12 +15,13 @@ module.exports.loop = function()
           Game.cpu.generatePixel();
      }
      
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY,CARRY, MOVE], 'miner1', {memory: {role: 'miner',minerPos :{x:0,y:0,roomName: Game.spawns['Spawn1'].room.name}}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY,CARRY,MOVE,MOVE], 'transfer1', {memory: {role: 'transfer', transfering: false}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'miner2', {memory: {role: 'miner',minerPos :{x:0,y:0,roomName: Game.spawns['Spawn1'].room.name}}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater1', {memory: {role: 'upgrader'}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater2', {memory: {role: 'upgrader'}});
-     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'transfer2', {memory: {role: 'transfer',transfering: false} });
+     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'miner1', {memory: {role: 'miner',minerPos :{x:0,y:0,roomName: Game.spawns['Spawn1'].room.name}}});
+     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY,MOVE], 'transfer1', {memory: {role: 'transfer', transfering: false}});
+     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY,CARRY], 'miner2', {memory: {role: 'miner',minerPos :{x:0,y:0,roomName: Game.spawns['Spawn1'].room.name}}});
+     Game.spawns['Spawn1'].spawnCreep([WORK, CARRY,CARRY], 'transfer2', {memory: {role: 'transfer',transfering: false} });
+   //  Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater1', {memory: {role: 'upgrader'}});
+    // Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], 'updater2', {memory: {role: 'upgrader'}});
+     
      
     
      

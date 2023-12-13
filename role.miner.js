@@ -16,7 +16,8 @@ var roleMiner =
           };
      }
      var sources = creep.room.find(FIND_SOURCES);
-     for(var i=0; i<sources.length; i++)
+     if(creep.memory.minerPos.x == 0 && creep.memory.minerPos.y == 0)
+     {for(var i=0; i<sources.length; i++)
      {
           var miner = _.filter(Game.creeps, (c) => c.memory.role == 'miner' 
           && c.memory.minerPos !== undefined
@@ -35,7 +36,7 @@ var roleMiner =
                          
 
                     }
-               }
+               }}
 
                if(creep.memory.minerPos.x !=0 && creep.memory.minerPos.y !=0)
                {
@@ -57,7 +58,7 @@ var roleMiner =
                
                
                     
-               if(creep.carry.energy > 0  )
+               if(creep.carry.energy > 1  )
                
                     
                {    

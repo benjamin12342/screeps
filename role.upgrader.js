@@ -12,12 +12,35 @@ var roleUpgrader =
                creep.memory.harvesting = false;
           }
           if(creep.memory.harvesting )
-          {
-               var sources = creep.room.find(FIND_SOURCES);
-               if(creep.harvest(sources[1]) == ERR_NOT_IN_RANGE)
+          {    
+               let container = creep.pos.findClosestByPath(FIND_STRUCTURES,
+              {
+               filter: (s) => s.structureType == STRUCTURE_SPAWN && s.store[RESOURCE_ENERGY] > 0
+
+              });
+               if(!container)     
+                    {container = creep.pos.findClosestByPath(FIND_STRUCTURES,
+                    {
+                         filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
+
+                    });}
+               if(!container)
                {
-                    creep.moveTo(sources[1],{visualizePathStyle:{stroke:'#ffaa00'}});
+                    container = creep.pos.findClosestByPath(FIND_STRUCTURES,
+                    {
+                         filter: (s) => s.structureType == STRUCTURE_EXTENSION && s.store[RESOURCE_ENERGY] > 0
+
+                    });
                }
+              
+
+              if(container)
+              {
+               if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+               {
+                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ffaa00'}});
+               }
+              }
           }
           else 
           {
@@ -26,6 +49,7 @@ var roleUpgrader =
                     creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
                }
           }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
      }
 };
 module.exports = roleUpgrader;
