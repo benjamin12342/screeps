@@ -18,7 +18,7 @@ var roleTransfer =
           for(var i=0; i<sources.length; i++)
           {
           var harvesters = _.filter(Game.creeps, (c) => c.memory.role == 'Transfer' 
-          && c.memory.minerPos !== undefined
+          
           && c.memory.minerPos.x == sources[i].pos.x 
           && c.memory.minerPos.y == sources[i].pos.y 
           && c.memory.minerPos.roomName == sources[i].room.name);
@@ -122,7 +122,10 @@ var roleTransfer =
                     }
                     else 
                     {
-                         var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
+                         var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES,{
+                              filter:(site) => site.structureType === STRUCTURE_LINK
+                         }
+                         );
                          if( constructionSites.length > 0)
                          {
                               if(creep.build(constructionSites[0]) == ERR_NOT_IN_RANGE)

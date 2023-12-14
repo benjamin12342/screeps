@@ -34,7 +34,7 @@ var roleUpgrader =
                }
               
 
-              if(container)
+              if(container&&creep.room.energyAvailable >= 1)
               {
                if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                {
